@@ -151,10 +151,9 @@ gsettings set org.gnome.shell favorite-apps "${pinned_apps}"
 
 # Disable Nemo Auto Arrange Icons feature
 # change the setting in the metadata file
+nohup nemo-desktop > /dev/null & # Starts nemo to generate desktop metadata
 sed -i 's/view-auto-layout=true/view-auto-layout=false/g' "$HOME/.config/nemo/desktop-metadata"
-echo "Quitting nemo-desktop to ensure auto-arrange is OFF for desktop(s)"
 # quit nemo-desktop
 nemo-desktop --quit
 # it should restart itself automatically
-echo "Desktop icon auto-arrange should now be off"
 gnome-session-quit
