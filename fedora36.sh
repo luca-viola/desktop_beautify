@@ -20,7 +20,8 @@ sudo sed -i 's/^[^#]*NoDisplay=true/#&/' /usr/share/applications/nemo-autostart.
 sudo sed -i 's/^[^#]*OnlyShowIn=X-Cinnamon;/#&/' /usr/share/applications/nemo-autorun-software.desktop
 
 # Set Nemo as the file manager
-cp /usr/share/applications/nemo-autostart.desktop ${HOME}/.config/autostart
+mkdir ${HOME}/.config/autostart
+cp /usr/share/applications/nemo-autostart.desktop ${HOME}/.config/autostart/
 xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
 gsettings set org.nemo.desktop show-desktop-icons true
 xdg-mime default org.gnome.FileRoller.desktop  application/gzip application/x-7z-compressed application/x-7z-compressed-tar application/x-bzip application/x-bzip-compressed-tar application/x-compress application/x-compressed-tar application/x-cpio application/x-gzip application/x-lha application/x-lzip application/x-lzip-compressed-tar application/x-lzma application/x-lzma-compressed-tar application/x-tar application/x-tarz application/x-xar application/x-xz application/x-xz-compressed-tar application/zip
