@@ -35,6 +35,8 @@ gsettings set org.nemo.preferences show-show-thumbnails-toolbar true
 gsettings set org.nemo.desktop show-desktop-icons true
 gsettings set org.nemo.desktop volumes-visible true
 gsettings set org.nemo.desktop volumes-visible true
+gsettings set org.nemo.desktop network-icon-visible true
+
 
 # Set icon theme
 gsettings set org.gnome.desktop.interface icon-theme 'La-Capitaine'
