@@ -57,10 +57,12 @@ sudo apt -y install vim \
 	dconf-editor \
         vlc \
 	ffmpeg \
-	gimp
+	gimp \
+	wmctrl
 
 # Install gnome extensions
 
+tar xvzf dash-2-doc.tgz -C ${HOME}/.local/share/gnome-shell/extensions
 #sudo dnf -y install \
 #gnome-shell-extension-dash-to-dock.noarch \
 #gnome-shell-extension-sound-output-device-chooser.noarch \
@@ -70,6 +72,8 @@ sudo apt -y install vim \
 #gnome-shell-extension-drive-menu.noarch
 
 # Enable extensions
+gnome-extensions disable ubuntu-dock@ubuntu.com
+gnome-extensions disable ding@rastersoft.com
 gnome-extensions enable dash-to-dock@micxgx.gmail.com
 gnome-extensions enable apps-menu@gnome-shell-extensions.gcampax.github.com
 gnome-extensions enable launch-new-instance@gnome-shell-extensions.gcampax.github.com
@@ -156,11 +160,11 @@ EOF
 pinned_apps=$(gsettings get org.gnome.shell favorite-apps | sed "s/\[/\['show-desktop.desktop', /")
 gsettings set org.gnome.shell favorite-apps "${pinned_apps}"
 
-## Disable Nemo Auto Arrange Icons feature
-## change the setting in the metadata file
-#nohup nemo-desktop > /dev/null & # Starts nemo to generate desktop metadata
-#sed -i 's/view-auto-layout=true/view-auto-layout=false/g' "$HOME/.config/nemo/desktop-metadata"
-## quit nemo-desktop
-#nemo-desktop --quit
-## it should restart itself automatically
-#gnome-session-quit
+# Disable Nemo Auto Arrange Icons feature
+# change the setting in the metadata file
+nohup nemo-desktop > /dev/null & # Starts nemo to generate desktop metadata
+sed -i 's/view-auto-layout=true/view-auto-layout=false/g' "$HOME/.config/nemo/desktop-metadata"
+# quit nemo-desktop
+nemo-desktop --quit
+# it should restart itself automatically
+gnome-session-quit
