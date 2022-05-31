@@ -112,7 +112,7 @@ gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 32
 gsettings set org.gnome.shell.extensions.dash-to-dock custom-theme-shrink true
 
 # Set dark theme
-gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
+gsettings set org.gnome.desktop.interface gtk-theme Yaru-dark
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
 # Set MacOS theme
