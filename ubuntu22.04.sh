@@ -4,10 +4,28 @@
 sudo apt -y update 
 
 # Install La Capitaine theme
-mkdir -p ${HOME}/.icons
-git clone https://github.com/keeferrourke/la-capitaine-icon-theme.git 
-mv la-capitaine-icon-theme ${HOME}/.icons/
+if [ ! -d "la-capitaine-icon-theme" ]; then
+  mkdir -p ${HOME}/.icons
+  git clone https://github.com/keeferrourke/la-capitaine-icon-theme.git 
+  mv la-capitaine-icon-theme ${HOME}/.icons/
+fi
 
+## Install Vanilla Gnome
+sudo apt -y install vanilla-gnome-desktop vanilla-gnome-default-settings
+
+# preset the current session to Gnome on Xorg
+if [ ! -f /var/lib/AccountsService/users/${USER} ]; then
+
+echo > /var/lib/AccountsService/users/${USER} << EOF
+[User]
+Session=gnome-xorg
+Icon=/home/lucaviola/.face
+SystemAccount=false
+EOF
+
+else
+  sed -i '/^Session/s/=.*$/=gnome-xorg/' /var/lib/AccountsService/users/${USER}
+fi
 
 ## Replace Files (Nautilus) with Nemo
 # Install nemo & plugins
@@ -32,8 +50,10 @@ gsettings set org.nemo.preferences show-home-icon-toolbar true
 gsettings set org.nemo.preferences show-new-folder-icon-toolbar true
 gsettings set org.nemo.preferences show-show-thumbnails-toolbar true 
 gsettings set org.nemo.desktop show-desktop-icons true
+gsettings set org.nemo.desktop computer-icon-visible true
 gsettings set org.nemo.desktop volumes-visible true
-gsettings set org.nemo.desktop volumes-visible true
+gsettings set org.nemo.desktop home-icon-visible true
+gsettings set org.nemo.desktop trash-icon-visible true
 gsettings set org.nemo.desktop network-icon-visible true
 
 
@@ -44,9 +64,11 @@ gsettings set org.gnome.desktop.interface icon-theme 'la-capitaine-icon-theme'
 gsettings set org.gnome.desktop.wm.preferences button-layout 'close,minimize,maximize:'
 
 # install google chrome
-sudo apt-get install libxss1 libappindicator1 libindicator7
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo apt install ./google-chrome*.deb
+if [ ! -f "google-chrome-stable_current_amd64.deb" ]; then
+  sudo apt-get install libxss1 libappindicator1 libindicator7
+  wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  sudo apt install ./google-chrome*.deb
+fi
 
 # Install applications
 #	google-chrome-stable \
