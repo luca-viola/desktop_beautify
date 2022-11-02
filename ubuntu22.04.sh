@@ -84,6 +84,7 @@ sudo apt -y install vim \
 
 # Install gnome extensions
 
+mkdir -p ${HOME}/.local/share/gnome-shell/extensions
 tar xvzf dash-2-doc.tgz -C ${HOME}/.local/share/gnome-shell/extensions
 #sudo dnf -y install \
 #gnome-shell-extension-dash-to-dock.noarch \
