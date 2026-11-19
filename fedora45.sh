@@ -56,7 +56,9 @@ sudo dnf -y upgrade --refresh
 sudo dnf -y install fedora-workstation-repositories \
     "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
     "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
-# dnf5 syntax (the old --set-enabled flag no longer exists)
+# dnf5 syntax (the old --set-enabled flag no longer exists).
+# config-manager comes from dnf5-plugins, which may not be installed.
+sudo dnf -y install dnf5-plugins
 sudo dnf config-manager setopt google-chrome.enabled=1
 
 # Full ffmpeg from RPM Fusion replaces Fedora's ffmpeg-free
@@ -104,9 +106,17 @@ gsettings set org.nemo.desktop network-icon-visible true
 gsettings set org.gnome.desktop.wm.preferences button-layout 'close,minimize,maximize:'
 
 ## Applications
+# dnf5 aborts the whole transaction if any package is missing, so keep
+# Chrome (third-party repo) separate from the Fedora packages
+# Google only ships Chrome for x86_64
+if [ "$(uname -m)" = "x86_64" ]; then
+    sudo dnf -y install google-chrome-stable \
+        || echo "WARNING: Chrome install failed (is the google-chrome repo enabled?)"
+else
+    echo "NOTE: no Chrome build for $(uname -m), skipping it."
+fi
 sudo dnf -y install \
     vim \
-    google-chrome-stable \
     gnome-tweaks \
     gnome-extensions-app \
     dconf-editor \
