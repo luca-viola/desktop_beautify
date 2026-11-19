@@ -1,9 +1,11 @@
 # Dock: pinned apps, and a Show Desktop launcher
 # shellcheck shell=bash
 
-# Fedora 41+ uses Ptyxis instead of GNOME Terminal
+# Fedora 41+ uses Ptyxis instead of GNOME Terminal. Flatpak apps (ZapZap) are
+# named by their app ID.
 for app in org.gnome.Settings.desktop nemo.desktop org.gnome.Ptyxis.desktop \
-           org.gnome.Calculator.desktop google-chrome.desktop vlc.desktop gimp.desktop; do
+           org.gnome.Calculator.desktop google-chrome.desktop vlc.desktop gimp.desktop \
+           com.rtosta.zapzap.desktop; do
     pin_app "${app}"
 done
 unpin_app org.mozilla.firefox.desktop

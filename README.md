@@ -27,13 +27,13 @@ modules that failed, so you can fix the cause and re-run just those.
 | `system` | Updates the system, adds RPM Fusion and the Google Chrome repo, swaps in full ffmpeg |
 | `nemo` | Replaces Files (Nautilus) with Nemo, which also draws the desktop icons |
 | `desktop-settings` | Window buttons on the left, right Super as Compose key, Super+D shows the desktop |
-| `apps` | Chrome, vim, VLC, GIMP, GNOME Tweaks, Extensions, dconf Editor |
+| `apps` | Chrome, vim, VLC, GIMP, GNOME Tweaks, Extensions, dconf Editor; from Flathub: Extension Manager, ZapZap |
 | `kubernetes` | kubectl from the upstream repo, aliased to kubecolor |
 | `extensions` | GNOME Shell extensions, from Fedora where packaged, otherwise from extensions.gnome.org |
 | `snappo` | [Snappo](https://github.com/luca-viola/snappo), a screenshot extension with OCR |
 | `faceguard` | Face Guard, which locks the screen when you walk away. Private repo: needs a GitHub SSH key, otherwise it's skipped |
 | `theme` | WhiteSur GTK, shell and icon themes, dark |
-| `dock` | Pinned apps, and a Show Desktop launcher |
+| `dock` | Pinned apps (including ZapZap), and a Show Desktop launcher |
 | `shell` | eza/bat aliases, `fixterm`, bash-git-prompt, personal directories |
 
 ## Layout
