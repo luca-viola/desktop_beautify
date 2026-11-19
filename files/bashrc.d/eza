@@ -1,0 +1,5 @@
+#!/bin/bash
+
+alias ll='eza -lah --color=always --git --icons=always --group-directories-first'
+alias ls='eza --color=always --git --icons=always --group-directories-first'
+alias cat='bat'
