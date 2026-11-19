@@ -1,10 +1,12 @@
-# Applications: Chrome, vim, VLC, GIMP, ZapZap, Tweaks, Extensions, Extension Manager, dconf Editor
+# Applications: Chrome, vim, VLC, GIMP, Sublime Text, ZapZap, Tweaks, Extensions, Extension Manager, dconf Editor
 # shellcheck shell=bash
 
-# dnf5 aborts the whole transaction if any package is missing, so keep
-# Chrome (third-party repo, set up in the system module) separate
+# dnf5 aborts the whole transaction if any package is missing, so keep the
+# apps from third-party repos (set up in the system module) separate
 sudo dnf -y install google-chrome-stable \
     || warn "Chrome install failed (check /etc/yum.repos.d/google-chrome.repo)"
+sudo dnf -y install sublime-text \
+    || warn "Sublime Text install failed (check /etc/yum.repos.d/sublime-text.repo)"
 
 sudo dnf -y install \
     vim \

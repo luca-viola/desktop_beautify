@@ -1,4 +1,4 @@
-# System update and repositories: RPM Fusion, Google Chrome
+# System update and repositories: RPM Fusion, Google Chrome, Sublime Text
 # shellcheck shell=bash
 
 sudo dnf -y upgrade --refresh
@@ -19,6 +19,18 @@ skip_if_unavailable=True
 gpgcheck=1
 gpgkey=https://dl.google.com/linux/linux_signing_key.pub
 enabled=1
+EOF
+
+# Sublime Text's own repo. Use this instead of the snap: the snap runs on
+# bundled Ubuntu libraries that can't find GNOME's settings on Fedora, so it
+# ignores the button layout and theme.
+sudo tee /etc/yum.repos.d/sublime-text.repo > /dev/null << 'EOF'
+[sublime-text]
+name=Sublime Text - stable
+baseurl=https://download.sublimetext.com/rpm/stable/$basearch
+enabled=1
+gpgcheck=1
+gpgkey=https://download.sublimetext.com/sublimehq-pub.gpg
 EOF
 
 # Full ffmpeg from RPM Fusion replaces Fedora's ffmpeg-free

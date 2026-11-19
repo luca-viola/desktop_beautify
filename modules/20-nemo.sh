@@ -38,19 +38,42 @@ gsettings set org.nemo.desktop show-desktop-icons true
 gsettings set org.nemo.desktop volumes-visible true
 gsettings set org.nemo.desktop network-icon-visible true
 
-# Turn off auto-arrange for desktop icons. On the first run nemo-desktop has
-# never started, so its metadata file doesn't exist yet: start it and wait for
-# the file to appear.
+# Desktop icons on every monitor: "<on primary>::<on the other monitors>"
+gsettings set org.nemo.desktop desktop-layout 'true::true'
+
+# Turn off auto-arrange on every monitor. It's a per-monitor key in nemo's
+# desktop metadata, and a monitor without one gets nemo's default (on), so
+# write it for each monitor section already there plus monitors 0-3, which
+# covers monitors plugged in later. nemo-desktop rewrites the file when it
+# quits, so stop it while editing and start it again if it was running.
 METADATA="${HOME}/.config/nemo/desktop-metadata"
-pgrep -x nemo-desktop > /dev/null || (nohup nemo-desktop > /dev/null 2>&1 &)
-for _ in $(seq 1 20); do
-    [ -f "${METADATA}" ] && break
-    sleep 0.5
-done
-nemo-desktop --quit 2> /dev/null || true
-sleep 1
-if [ -f "${METADATA}" ]; then
-    sed -i 's/view-auto-layout=true/view-auto-layout=false/g' "${METADATA}"
-else
-    echo "NOTE: ${METADATA} was not created. Turn off auto-arrange by hand in Nemo."
+was_running=
+if pgrep -x nemo-desktop > /dev/null; then
+    was_running=1
+    nemo-desktop --quit 2> /dev/null || true
+    for _ in $(seq 1 10); do
+        pgrep -x nemo-desktop > /dev/null || break
+        sleep 0.5
+    done
+fi
+mkdir -p "$(dirname "${METADATA}")"
+touch "${METADATA}"
+awk '
+    # Drop any auto-layout line in a monitor section, then write it as false
+    /^\[/ { in_monitor = ($0 ~ /^\[desktop-monitor-[0-9]+\]$/) }
+    in_monitor && /^nemo-icon-view-auto-layout=/ { next }
+    { print }
+    /^\[desktop-monitor-[0-9]+\]$/ {
+        print "nemo-icon-view-auto-layout=false"
+        seen[$0] = 1
+    }
+    END {
+        for (i = 0; i <= 3; i++) {
+            s = "[desktop-monitor-" i "]"
+            if (!(s in seen)) printf "\n%s\nnemo-icon-view-auto-layout=false\n", s
+        }
+    }
+' "${METADATA}" > "${METADATA}.new" && mv "${METADATA}.new" "${METADATA}"
+if [ -n "${was_running}" ]; then
+    (nohup nemo-desktop > /dev/null 2>&1 &)
 fi

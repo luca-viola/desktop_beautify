@@ -24,10 +24,10 @@ modules that failed, so you can fix the cause and re-run just those.
 
 | Module | What it does |
 | --- | --- |
-| `system` | Updates the system, adds RPM Fusion and the Google Chrome repo, swaps in full ffmpeg |
-| `nemo` | Replaces Files (Nautilus) with Nemo, which also draws the desktop icons |
+| `system` | Updates the system, adds RPM Fusion and the Google Chrome and Sublime Text repos, swaps in full ffmpeg |
+| `nemo` | Replaces Files (Nautilus) with Nemo, which also draws the desktop icons: on every monitor, auto-arrange off |
 | `desktop-settings` | Window buttons on the left, right Super as Compose key, Super+D shows the desktop |
-| `apps` | Chrome, vim, VLC, GIMP, GNOME Tweaks, Extensions, dconf Editor; from Flathub: Extension Manager, ZapZap |
+| `apps` | Chrome, Sublime Text, vim, VLC, GIMP, GNOME Tweaks, Extensions, dconf Editor; from Flathub: Extension Manager, ZapZap |
 | `kubernetes` | kubectl from the upstream repo, aliased to kubecolor |
 | `extensions` | GNOME Shell extensions, from Fedora where packaged, otherwise from extensions.gnome.org |
 | `snappo` | [Snappo](https://github.com/luca-viola/snappo), a screenshot extension with OCR |
