@@ -1,4 +1,4 @@
-# GNOME settings: window buttons, Compose key, Show Desktop shortcut
+# GNOME settings: window buttons, Compose key, middle-click paste, workspaces on all displays, Show Desktop shortcut
 # shellcheck shell=bash
 
 # Window controls on the left, with minimize and maximize
@@ -14,6 +14,13 @@ else
     xkb="${xkb%]}, 'compose:rwin']"
 fi
 gsettings set org.gnome.desktop.input-sources xkb-options "${xkb}"
+
+# Paste the selected text with a middle click
+gsettings set org.gnome.desktop.interface gtk-enable-primary-paste true
+
+# Switching workspace switches every display, not just the primary one
+# (Settings > Multitasking > Workspaces on all displays)
+gsettings set org.gnome.mutter workspaces-only-on-primary false
 
 # Show Desktop on Super+D (the dock launcher in the dock module is best effort)
 gsettings set org.gnome.desktop.wm.keybindings show-desktop "['<Super>d']"
